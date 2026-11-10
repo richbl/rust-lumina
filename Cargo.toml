@@ -1,0 +1,54 @@
+[package]
+  name = "lumina"
+  version = "0.1.0"
+  edition = "2024"
+  rust-version = "1.95"
+  description = "Dim/brighten the display based on local sunrise and sunset"
+
+[features]
+  # GTK4/libadwaita front end (needs libgtk-4-dev and libadwaita-1-dev, >= 1.5)
+  gui = ["dep:relm4", "dep:libadwaita"]
+
+[[bin]]
+  name = "lumina"
+  path = "src/main.rs"
+
+[[bin]]
+  name = "lumina-gui"
+  path = "src/bin/lumina-gui/main.rs"
+  required-features = ["gui"]
+
+[build-dependencies]
+  glib-build-tools = "0.22"
+
+[dependencies]
+  anyhow = "1"
+  brightness = "0.8"
+  chrono = { version = "0.4", default-features = false, features = ["std", "clock"] }
+  clap = { version = "4", features = ["derive"] }
+  futures-util = "0.3"
+  serde = { version = "1", features = ["derive"] }
+  serde_json = "1"
+  tokio = { version = "1", features = ["rt", "macros", "time", "signal"] }
+  toml = "1"
+  relm4 = { version = "0.11", optional = true, features = ["libadwaita"] }
+  libadwaita = { version = "0.9", optional = true, features = ["v1_5"] }
+  ureq = { version = "3.5", features = ["json"] }
+
+[dev-dependencies]
+  tempfile = "3"
+
+[profile.release]
+  lto = true
+  strip = true
+  codegen-units = 1
+
+[lints.clippy]
+  all = "warn"
+  pedantic = "warn"
+  cognitive_complexity = "warn"
+  panic = "warn"
+  empty_line_after_doc_comments = "warn"
+  undocumented_unsafe_blocks = "warn"
+  unnecessary_safety_comment = "warn"
+  doc_markdown = "warn"

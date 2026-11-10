@@ -1,0 +1,13 @@
+[Desktop Entry]
+Type=Application
+
+Name=Lumina
+Comment=Lumina automatically manages display brightness based on location and time of day
+
+Exec=lumina-gui
+Icon=io.github.richbl.Lumina
+
+Terminal=false
+StartupNotify=true
+Categories=Utility;System;
+Keywords=display;monitor;brightness;dimmer;location;time

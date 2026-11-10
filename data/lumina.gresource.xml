@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<gresources>
+  <gresource prefix="/io/github/richbl/Lumina">
+    <file alias="icons/scalable/apps/io.github.richbl.Lumina.svg">lumina.svg</file>
+  </gresource>
+</gresources>

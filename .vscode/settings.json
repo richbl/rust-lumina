@@ -1,0 +1,6 @@
+{
+  "rust-analyzer.check.command": "clippy",
+  "rust-analyzer.check.features": "all",
+  "rust-analyzer.cargo.features": "all",
+  "better-todo-tree.tree.scanMode": "open files"
+}
