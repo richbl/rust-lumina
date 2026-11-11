@@ -64,7 +64,7 @@ Brightness follows a smooth half-sine curve across a "daytime window" (sunrise t
 
 <!-- markdownlint-disable MD033 -->
 <p align="center">
-<img width="60%" alt="Daytime solar window" src="https://raw.githubusercontent.com/richbl/rust-lumina/refs/heads/main/.github/assets/solar_window.png">
+<img width="85%" alt="Daytime solar window" src="https://raw.githubusercontent.com/richbl/rust-lumina/refs/heads/main/.github/assets/solar_window.png">
 </p>
 
 <!-- markdownlint-enable MD033 -->
