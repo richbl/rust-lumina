@@ -13,7 +13,7 @@
 <!-- <a href="https://codeberg.org/richbl/rust-lumina"><img align="middle" width="85" alt="Gitberg logo" src="https://raw.githubusercontent.com/richbl/rust-cli-sysinfo/refs/heads/main/.github/assets/gitberg_logo.png"></a> -->
 <!-- markdownlint-enable MD033 -->
 
-Dims/brightens device displays based on local sunrise/sunset.
+Automatically dims/brightens device displays based on location and time of day
 
 ## Overview
 
@@ -21,11 +21,11 @@ Dims/brightens device displays based on local sunrise/sunset.
 
 <!-- markdownlint-disable MD033 -->
 <p align="center">
-<img width="850" alt="Screenshot showing app status" src="https://raw.githubusercontent.com/richbl/rust-lumina/refs/heads/main/.github/assets/ui/gui_status.png">
+<img width="60%" alt="Screenshot showing app status" src="https://raw.githubusercontent.com/richbl/rust-lumina/refs/heads/main/.github/assets/ui/gui_status.png">
 </p>
 
 <p align="center">
-<img width="850" alt="Screenshot showing app settings" src="https://raw.githubusercontent.com/richbl/rust-lumina/refs/heads/main/.github/assets/ui/gui_settings.png">
+<img width="60%" alt="Screenshot showing app settings" src="https://raw.githubusercontent.com/richbl/rust-lumina/refs/heads/main/.github/assets/ui/gui_settings.png">
 </p>
 
 <!-- markdownlint-enable MD033 -->
@@ -62,6 +62,13 @@ Why build **Lumina**? To automate device brightness. I'm often in front of a com
 
 Brightness follows a smooth half-sine curve across a "daytime window" (sunrise to sunset unless overridden): `min` at the start, peak `max` at the midpoint, back to `min` at the stop, and `min` overnight.
 
+<!-- markdownlint-disable MD033 -->
+<p align="center">
+<img width="60%" alt="Daytime solar window" src="https://raw.githubusercontent.com/richbl/rust-lumina/refs/heads/main/.github/assets/solar_window.png">
+</p>
+
+<!-- markdownlint-enable MD033 -->
+
 ## Configuration
 
 Regardless whether you're running **Lumina** in CLI Mode or GUI Mode, the application creates a default configuration file in `~/.config/lumina/config.toml`:
@@ -87,7 +94,7 @@ Note that all sections and keys are optional, and command line flags override th
 
 ## The Lumina GUI Application
 
-In addition to running via the command line, `Lumina` can run as a stand-alone GUI application based on GTK4/Libadwaita using the Relm4 create.
+In addition to running via the command line, `Lumina` can run as a stand-alone GUI application based on GTK4/Libadwaita using the Relm4 crate.
 
 ## Building the **Lumina** Application
 
