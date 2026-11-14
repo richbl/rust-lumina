@@ -283,7 +283,7 @@ fn on_path(dir: &Path) -> bool {
 /// Print the pre-install/uninstall summary
 fn print_plan(action: &str, paths: &Paths, with_gui: bool) {
     println!();
-    println!("{action} lumina {} files...", env!("CARGO_PKG_VERSION"));
+    println!("{action} lumina {} files:", env!("CARGO_PKG_VERSION"));
     println!();
     println!("CLI binary:   {}", paths.cli.display());
     if with_gui {
@@ -338,9 +338,12 @@ pub fn uninstall() -> Result<()> {
     let paths = Paths::from_env()?;
 
     print_plan("Uninstalling", &paths, true);
+
     let results = uninstall_from(&paths)?;
     refresh_caches(&paths);
 
+    println!("Result:");
+    println!();
     for (path, removed) in &results {
         let label = if *removed {
             "Removed:   "
@@ -350,7 +353,7 @@ pub fn uninstall() -> Result<()> {
         println!("{label} {}", path.display());
     }
     println!();
-    println!("Uninstallation completed successfully (your configuration file was not touched).");
+    println!("Uninstallation completed successfully (configuration file not removed).");
     println!();
 
     Ok(())
