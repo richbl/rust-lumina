@@ -8,7 +8,7 @@
 <a href="https://github.com/richbl/rust-lumina/releases"><img align="middle" alt="Link to Releases" src="https://badgen.net/github/tag/richbl/rust-lumina?icon=github&label=release"></a>
 <a href="https://github.com/richbl/rust-lumina/pulls?q=is%3Apr+state%3Aclosed"><img align="middle" alt="Link to PRs" src="https://badgen.net/github/last-commit/richbl/rust-lumina?color=blue&icon=github"></a>
 <a href="https://app.codacy.com/gh/richbl/rust-lumina/dashboard?utm_source=gh&utm_medium=referral&utm_content=&utm_campaign=Badge_grade"><img align="middle" alt="Link to Codacy Report" src="https://app.codacy.com/project/badge/Grade/595889e53f25475da18dea64b5a60419"></a>
-<a href="https://sonarcloud.io/summary/new_code?id=richbl_rust-lumina"><img align="middle" alt="Link to SonarCloud Report" src="https://sonarcloud.io/api/project_badges/measure?project=richbl_rust-lumina&metric=alert_status"></a>
+<!-- <a href="https://sonarcloud.io/summary/new_code?id=richbl_rust-lumina"><img align="middle" alt="Link to SonarCloud Report" src="https://sonarcloud.io/api/project_badges/measure?project=richbl_rust-lumina&metric=alert_status"></a> -->
 
 <!-- <a href="https://codeberg.org/richbl/rust-lumina"><img align="middle" width="85" alt="Gitberg logo" src="https://raw.githubusercontent.com/richbl/rust-cli-sysinfo/refs/heads/main/.github/assets/gitberg_logo.png"></a> -->
 <!-- markdownlint-enable MD033 -->
@@ -124,7 +124,9 @@ These two values determine the current brightness as a percent of maximum displa
 
 **Lumina** calculates current brightness using the formula below:
 
-$$brightness\% = \left(\frac{brightness}{max\_brightness}\right) \times 100$$
+$$brightness=\left(\frac{brightness}{max\ brightness}\right)\times100$$
+
+As an example, if `brightness=26113` and `max_brightness=65535`, the current brightness value returned (as a percent) would be `40%`.
 
 ### Using the Lumina Installer
 
