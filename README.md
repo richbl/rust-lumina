@@ -42,27 +42,40 @@ I'm often in front of a computer most of the day, and in the Pacific Northwest, 
 
 ## Features
 
-* **Dual Application Interfaces:** choose between running **Lumina** in a lightweight CLI or via a GTK4/libadwaita graphical user interface (GUI)
-* **Automatic Brightness Management:** automatically adjusts display brightness throughout the day
-* **Automatic Location Detection:** determines geographic coordinates using IP geolocation services (with a fallback provider and on-disk caching)
-  * **Manual Location Override:** supports manually specifying latitude and longitude
-* **Location-Aware Scheduling:** automatically uses geographic coordinates to calculate local sunrise and sunset times to follow a "brightness curve", or optionally override these values and use manually-specified start and stop times
-* **Smooth Brightness Transitions:** uses a sinusoidal "brightness curve" to provide gradual transitions throughout the day
-* **Configurable Brightness Limits:** independently configurable minimum and maximum display brightness values
-* **Configurable Update Interval:** controls how frequently **Lumina** evaluates and applies brightness adjustments
-* **Manual Brightness Override:** optionally respects brightness changes made outside of **Lumina** (e.g., manual brightness adjustments by the user)
-* **Live Configuration Reload:** edits are picked up while **Lumina** is running: no need to restart the application
-* **Multi-Display Support:** every controllable display is tracked and updated, with per-device error reporting
-* **Integrated Installer:** a user-level installer/uninstaller is integrated directly into the **Lumina** application (no root required)
+* **Dual Application Interfaces**
+  * Choose between running **Lumina** in a lightweight CLI or via a GTK4/libadwaita graphical user interface (GUI)
+* **Automatic Brightness Management**
+  * Automatically adjusts display brightness throughout the day
+* **Automatic Location Detection**
+  * Determines geographic coordinates using IP geolocation services (with a fallback provider and on-disk caching)
+  * **Manual Location Override**
+    * Supports manually specifying latitude and longitude
+* **Location-Aware Scheduling**
+  * Automatically uses geographic coordinates to calculate local sunrise and sunset times to follow a "brightness curve", or optionally override these values and use manually-specified start and stop times
+* **Smooth Brightness Transitions**
+  * Uses a sinusoidal "brightness curve" to provide gradual transitions throughout the day
+* **Configurable Brightness Limits**
+  * Independently configurable minimum and maximum display brightness values
+* **Configurable Update Interval**
+  * Controls how frequently **Lumina** evaluates and applies brightness adjustments
+* **Manual Brightness Override**
+  * Optionally respects brightness changes made outside of **Lumina** (e.g., manual brightness adjustments by the user)
+* **Live Configuration Reload**
+  * Edits are picked up while **Lumina** is running: no need to restart the application
+* **Multi-Display Support**
+  * Every controllable display is tracked and updated, with per-device error reporting
+* **Integrated Installer**
+  * A user-level installer/uninstaller is integrated directly into the **Lumina** application (no root required)
 
-* **Highly Configurable:** **Lumina** relies on a TOML-based file to manage the configuration for:
-  * Device display(s) brightness min/max values (`%`)
-  * Location (latitude/longitude) (`+/- 00.0000000`)
-  * Scheduling
-    * Start time-of-day (`HH:MM`) — overrides sunrise
-    * Stop time-of-day (`HH:MM`) — overrides sunset
-    * Brightness update interval (seconds)
-    * Respect for manual brightness changes (`true/false`)
+* **Highly Configurable**
+  * **Lumina** relies on a TOML-based file to manage the configuration for:
+    * Device display(s) brightness min/max values (`%`)
+    * Location (latitude/longitude) (`+/- 00.0000000`)
+    * Scheduling
+      * Start time-of-day (`HH:MM`) — overrides sunrise
+      * Stop time-of-day (`HH:MM`) — overrides sunset
+      * Brightness update interval (seconds)
+      * Respect for manual brightness changes (`true/false`)
 
 ## How Lumina Works
 
