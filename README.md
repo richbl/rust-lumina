@@ -137,7 +137,7 @@ These two values determine the current brightness as a percent of maximum displa
 
 **Lumina** calculates current brightness using the formula below:
 
-$$brightness=\left(\frac{brightness}{max\ brightness}\right)\times100$$
+$$current\ brightness=\left(\frac{brightness}{max\ brightness}\right)\times100$$
 
 As an example, if `brightness=26113` and `max_brightness=65535`, the current brightness value returned (as a percent) would be `40%`.
 
