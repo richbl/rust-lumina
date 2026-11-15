@@ -57,6 +57,19 @@ struct IpApiCo {
     error: Option<bool>,
 }
 
+/// Validate the location retrieved from external geolocation API
+fn parse_location_response(
+    provider: &str,
+    latitude: Option<f64>,
+    longitude: Option<f64>,
+) -> Result<Location> {
+    Location::new(
+        latitude.ok_or_else(|| anyhow!("missing latitude"))?,
+        longitude.ok_or_else(|| anyhow!("missing longitude"))?,
+    )
+    .with_context(|| format!("invalid {provider} location data"))
+}
+
 /// Parse the JSON response from ipwho.is and extract the latitude and longitude, returning a
 /// `Location` instance
 ///
@@ -68,10 +81,7 @@ pub fn parse_ipwhois(body: &str) -> Result<Location> {
     if r.success == Some(false) {
         bail!("ipwho.is reported failure");
     }
-    Location::new(
-        r.latitude.ok_or_else(|| anyhow!("missing latitude"))?,
-        r.longitude.ok_or_else(|| anyhow!("missing longitude"))?,
-    )
+    parse_location_response("ipwho.is", r.latitude, r.longitude)
 }
 
 /// Parse the JSON response from ipapi.co and extract the latitude and longitude, returning a
@@ -86,10 +96,7 @@ pub fn parse_ipapi_co(body: &str) -> Result<Location> {
         bail!("ipapi.co reported an error");
     }
 
-    Location::new(
-        r.latitude.ok_or_else(|| anyhow!("missing latitude"))?,
-        r.longitude.ok_or_else(|| anyhow!("missing longitude"))?,
-    )
+    parse_location_response("ipapi.co", r.latitude, r.longitude)
 }
 
 /// A type alias for a function that takes a string slice and returns a `Result<Location>`, used to
