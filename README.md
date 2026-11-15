@@ -83,6 +83,14 @@ I'm often in front of a computer most of the day, and in the Pacific Northwest, 
 
 By computing this "brightness curve" with the location of the device display (latitude/longitude) and the current time of day, **Lumina** is able to apply a smooth brightness progression (or regression in the afternoon hours) that very closely emulates the relative brightness of the sun over the course of the day.
 
+The figure below presents a notional daytime window, starting at 0600 and ending at 1800. The brightness curve follows a half-sine arc and demonstrates how solar irradiance changes non-linearly over the course of the day.
+
+<!-- markdownlint-disable MD033 -->
+<p align="center">
+<img width="80%" alt="Daytime solar window" src="https://raw.githubusercontent.com/richbl/rust-lumina/refs/heads/main/.github/assets/solar_window.png">
+</p>
+<!-- markdownlint-enable MD033 -->
+
 ### The Brightness Curve
 
 Brightness follows a smooth half-sine curve across the daytime window. That formula is as follows:
@@ -98,14 +106,6 @@ Where:
 * $t_n$ = solar noon
 
 Thus, the brightness curve sits at `min` at the start of the window, ramps quickly around sunrise, peaks at `max` at the midpoint (solar noon), eases back to `min` as the sun sets, and holds at `min` overnight.
-
-The figure below presents a notional daytime window, starting at 0600 and ending at 1800. The brightness curve follows a half-sine arc and demonstrates how solar irradiance changes non-linearly over the course of the day.
-
-<!-- markdownlint-disable MD033 -->
-<p align="center">
-<img width="80%" alt="Daytime solar window" src="https://raw.githubusercontent.com/richbl/rust-lumina/refs/heads/main/.github/assets/solar_window.png">
-</p>
-<!-- markdownlint-enable MD033 -->
 
 ### Location Detection
 
