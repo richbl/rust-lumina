@@ -322,7 +322,7 @@ $XDG_CONFIG_HOME/lumina/config.toml
 
 ```toml
 # Lumina Configuration (TOML)
-# v0.1.0
+# v0.1.1
 
 [location]
 latitude = 47.9789803

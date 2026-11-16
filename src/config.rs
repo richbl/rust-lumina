@@ -434,7 +434,7 @@ mod tests {
         assert!(p.exists() && !dir.path().join("c.toml.tmp").exists());
         assert_eq!(
             std::fs::read_to_string(p).unwrap(),
-            "# Lumina Configuration (TOML)\n# v0.1.0\n\n"
+            "# Lumina Configuration (TOML)\n# v0.1.1\n\n"
         );
     }
 

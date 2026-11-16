@@ -1,6 +1,6 @@
 [package]
   name = "lumina"
-  version = "0.1.0"
+  version = "0.1.1"
   edition = "2024"
   rust-version = "1.95"
   description = "Dim/brighten the display based on local sunrise and sunset"
