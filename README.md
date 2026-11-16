@@ -7,6 +7,7 @@
 
 <a href="https://github.com/richbl/rust-lumina/releases"><img align="middle" alt="Link to Releases" src="https://badgen.net/github/tag/richbl/rust-lumina?icon=github&label=release"></a>
 <a href="https://github.com/richbl/rust-lumina/pulls?q=is%3Apr+state%3Aclosed"><img align="middle" alt="Link to PRs" src="https://badgen.net/github/last-commit/richbl/rust-lumina?color=blue&icon=github"></a>
+<a href="https://rust-reportcard.xuri.me/report/github.com/richbl/rust-lumina"><img align="middle" alt="Link to Rust Report Card" src="https://rust-reportcard.xuri.me/badge/github.com/richbl/rust-lumina"></a>
 <a href="https://app.codacy.com/gh/richbl/rust-lumina/dashboard?utm_source=gh&utm_medium=referral&utm_content=&utm_campaign=Badge_grade"><img align="middle" alt="Link to Codacy Report" src="https://app.codacy.com/project/badge/Grade/595889e53f25475da18dea64b5a60419"></a>
 <!-- <a href="https://sonarcloud.io/summary/new_code?id=richbl_rust-lumina"><img align="middle" alt="Link to SonarCloud Report" src="https://sonarcloud.io/api/project_badges/measure?project=richbl_rust-lumina&metric=alert_status"></a> -->
 
