@@ -89,6 +89,7 @@ pub(crate) struct WorkState {
     /// `true` while a work task is running
     pub(crate) in_flight: bool,
     /// A request that arrived while a task was running; runs when it finishes
+    /// At most one pending mode is kept: [`Mode::Force`] always wins over [`Mode::Auto`]
     pub(crate) pending: Option<Mode>,
 }
 
@@ -191,7 +192,10 @@ impl App {
         } else {
             None
         };
-        self.validation.invalid = self.target.is_none();
+        // Detection in-flight is not a data-entry error; only treat the form as invalid
+        // if the target is unresolvable and we are not simply waiting for location to arrive
+        self.validation.invalid =
+            !self.inputs_ok() || (self.target.is_none() && !self.detection.in_flight);
     }
 
     /// Fill any blank custom time with a sensible value: the remembered custom
@@ -233,40 +237,31 @@ impl App {
         self.target.map_or("—".into(), |t| format!("{t}%"))
     }
 
-    /// Return the subtitle for the *Day starts* row in the Status view
-    pub(crate) fn day_starts_text(&self) -> String {
+    /// Format one schedule-time row for the Status view: `"{time} ({suffix})"`. When following
+    /// the sun `custom_time` is ignored and `solar` fills in; when using custom times `solar`
+    /// is ignored
+    fn schedule_time_text(&self, custom_time: &str, solar: Option<NaiveTime>) -> String {
         let time = if self.schedule.custom_times {
-            self.form.start.clone()
+            custom_time.to_owned()
         } else {
-            self.solar
-                .map_or_else(|| "—".into(), |(rise, _)| fmt_hm(rise))
+            solar.map_or_else(|| "—".into(), fmt_hm)
         };
-
         let suffix = if self.schedule.custom_times {
             "custom"
         } else {
             "automatic"
         };
-
         format!("{time} ({suffix})")
+    }
+
+    /// Return the subtitle for the *Day starts* row in the Status view
+    pub(crate) fn day_starts_text(&self) -> String {
+        self.schedule_time_text(&self.form.start, self.solar.map(|s| s.0))
     }
 
     /// Return the subtitle for the *Day ends* row in the Status view
     pub(crate) fn day_ends_text(&self) -> String {
-        let time = if self.schedule.custom_times {
-            self.form.stop.clone()
-        } else {
-            self.solar
-                .map_or_else(|| "—".into(), |(_, set)| fmt_hm(set))
-        };
-
-        let suffix = if self.schedule.custom_times {
-            "custom"
-        } else {
-            "automatic"
-        };
-
-        format!("{time} ({suffix})")
+        self.schedule_time_text(&self.form.stop, self.solar.map(|s| s.1))
     }
 
     /// Return a human-readable string representing the current location or status of detection
@@ -283,6 +278,7 @@ impl App {
             self.detection.in_flight,
             &self.detection.error,
         ) {
+            // In-flight takes priority: show a spinner-style string regardless of other state
             (_, true, _) => "Detecting…".into(),
             (Some(l), _, _) => {
                 let text = format!("{:.4}, {:.4} (automatic)", l.latitude, l.longitude);
@@ -387,6 +383,35 @@ impl App {
         self.automation.dirty = false;
 
         on.then_some(Mode::Auto)
+    }
+
+    /// Drive the per-second tick: advance counters, trigger a periodic recompute, and
+    /// schedule a brightness read or auto-apply as appropriate.
+    ///
+    /// When auto-adjust is enabled this fires `Mode::Auto` once the interval has elapsed
+    /// (or immediately when `dirty`), and `Mode::Read` between intervals so that
+    /// `current_text` stays live. When auto-adjust is off, only `Mode::Read` is used.
+    pub(crate) fn handle_tick(&mut self, sender: &ComponentSender<Self>) {
+        self.ticks += 1;
+
+        if self.ticks.is_multiple_of(RECOMPUTE_EVERY_TICKS) {
+            self.recompute();
+        }
+
+        if self.automation.enabled {
+            self.automation.elapsed = self.automation.elapsed.saturating_add(1);
+
+            if self.automation.dirty || self.automation.elapsed >= self.form.interval_seconds {
+                self.automation.dirty = false;
+                self.automation.elapsed = 0;
+                self.work(sender, Mode::Auto);
+            } else if self.ticks.is_multiple_of(READ_EVERY_TICKS) {
+                // Keep Current brightness live between auto-apply intervals
+                self.work(sender, Mode::Read);
+            }
+        } else if self.ticks.is_multiple_of(READ_EVERY_TICKS) {
+            self.work(sender, Mode::Read);
+        }
     }
 
     /// Switch between following the sun and custom times. Turning follow-sun on stashes the

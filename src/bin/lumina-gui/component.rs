@@ -6,8 +6,7 @@
 
 use crate::messages::{Cmd, Msg};
 use crate::model::{
-    App, AutoAdjustState, DetectionState, InitData, READ_EVERY_TICKS, RECOMPUTE_EVERY_TICKS,
-    ScheduleState, ValidationState, WorkState,
+    App, AutoAdjustState, DetectionState, InitData, ScheduleState, ValidationState, WorkState,
 };
 use crate::work::Mode;
 use lumina::config::{INTERVAL_MAX_SECONDS, INTERVAL_MIN_SECONDS};
@@ -450,12 +449,12 @@ impl Component for App {
             model.detect(&sender);
         }
 
-        model.recompute();
-
         if model.schedule.custom_times {
             model.fill_blank_times();
-            model.recompute();
         }
+
+        model.recompute();
+
 
         model.work(&sender, Mode::Read);
 
@@ -499,27 +498,7 @@ impl Component for App {
     fn update_cmd(&mut self, msg: Cmd, sender: ComponentSender<Self>, _root: &Self::Root) {
         self.schedule.sync_time_entries = false;
         match msg {
-            Cmd::Tick => {
-                self.ticks += 1;
-
-                if self.ticks.is_multiple_of(RECOMPUTE_EVERY_TICKS) {
-                    self.recompute();
-                }
-
-                if self.automation.enabled {
-                    self.automation.elapsed = self.automation.elapsed.saturating_add(1);
-
-                    if self.automation.dirty
-                        || self.automation.elapsed >= self.form.interval_seconds
-                    {
-                        self.automation.dirty = false;
-                        self.automation.elapsed = 0;
-                        self.work(&sender, Mode::Auto);
-                    }
-                } else if self.ticks.is_multiple_of(READ_EVERY_TICKS) {
-                    self.work(&sender, Mode::Read);
-                }
-            }
+            Cmd::Tick => self.handle_tick(&sender),
             Cmd::Detected(r) => {
                 self.detection.in_flight = false;
                 match r {
